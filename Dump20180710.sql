@@ -81,6 +81,40 @@ LOCK TABLES `Developer` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Products`
+--
+
+DROP TABLE IF EXISTS `Products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Products` (
+  `Prod_Ref` varchar(45) NOT NULL,
+  `Proj_Name` varchar(45) DEFAULT NULL,
+  `Rel_Date` datetime DEFAULT NULL,
+  `Sub_Proj_Name` varchar(45) DEFAULT NULL,
+  `Proj_Country` varchar(25) DEFAULT NULL,
+  `Proj_Sub_Loc` varchar(45) DEFAULT NULL,
+  `Proj_Terciary_Loc` varchar(45) DEFAULT NULL,
+  `Invoice_Code_dev` varchar(45) DEFAULT NULL,
+  `Invoice_Code_Proj` varchar(45) DEFAULT NULL,
+  `Coa_Ref` int(11) DEFAULT NULL,
+  `Coa_Cred_Ref` int(11) DEFAULT NULL,
+  `Camp_Dev_Ref` int(11) DEFAULT NULL,
+  `Camp_Prod_Ref` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Prod_Ref`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Products`
+--
+
+LOCK TABLES `Products` WRITE;
+/*!40000 ALTER TABLE `Products` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Sales`
 --
 
@@ -128,8 +162,10 @@ CREATE TABLE `Sales` (
   PRIMARY KEY (`Sales_Ref`),
   KEY `fk_Agora_Cust_Num` (`Agora_Cust_Num`),
   KEY `fk_Dev_Ref` (`Dev_Ref`),
+  KEY `fk_Prod_Ref` (`Prod_Ref`),
   CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`Agora_Cust_Num`) REFERENCES `Buyer` (`Agora_Cust_Num`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `sales_ibfk_2` FOREIGN KEY (`Dev_Ref`) REFERENCES `Developer` (`Dev_Ref`) ON DELETE NO ACTION ON UPDATE CASCADE
+  CONSTRAINT `sales_ibfk_2` FOREIGN KEY (`Dev_Ref`) REFERENCES `Developer` (`Dev_Ref`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  CONSTRAINT `sales_ibfk_3` FOREIGN KEY (`Prod_Ref`) REFERENCES `Products` (`Prod_Ref`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -151,4 +187,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-10 15:24:21
+-- Dump completed on 2018-07-10 15:44:24
